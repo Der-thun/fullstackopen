@@ -16,6 +16,10 @@ const App = () => {
   const handleNeutralClick = () => setNeutral(neutral + 1)
   const handleBadClick = () => setBad(bad + 1)
 
+  const all = good + neutral + bad
+  const average = (good - bad) / all
+  const positive = 100 * good / all
+
   return (
     <div>
       <Header text={header} />
@@ -26,6 +30,9 @@ const App = () => {
       <p>good {good}</p>
       <p>neutral {neutral}</p>
       <p>bad {bad}</p>
+      <p>all {all}</p>
+      <p>average {average}</p>
+      <p>positive {positive}%</p>
     </div>
   )
 }
