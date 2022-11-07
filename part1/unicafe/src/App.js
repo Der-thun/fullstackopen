@@ -3,21 +3,23 @@ import { useState } from 'react'
 const Title = ({ text }) => <h1>{text}</h1>
 
 const StatisticLine = ({ text, value }) => (
-  <p>{text} {value}</p>
+  <tr><td>{text}</td><td>{value}</td></tr>
 )
 
 const Statistics = ({ statistics }) => {
   if (statistics.all === 0) 
     return <p>No feedback given</p>
   return (
-    <div>
-      <StatisticLine text="good" value={statistics.good}/>
-      <StatisticLine text="neutral" value={statistics.neutral}/>
-      <StatisticLine text="bad" value={statistics.bad}/>
-      <StatisticLine text="all" value={statistics.all}/>
-      <StatisticLine text="average" value={statistics.average}/>
-      <StatisticLine text="positive" value={statistics.positive}/>
-    </div>
+    <table>
+      <tbody>
+        <StatisticLine text="good" value={statistics.good}/>
+        <StatisticLine text="neutral" value={statistics.neutral}/>
+        <StatisticLine text="bad" value={statistics.bad}/>
+        <StatisticLine text="all" value={statistics.all}/>
+        <StatisticLine text="average" value={statistics.average}/>
+        <StatisticLine text="positive" value={statistics.positive}/>
+      </tbody>
+    </table>
   )
 }
 
