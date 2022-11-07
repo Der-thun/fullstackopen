@@ -3,6 +3,8 @@ import { useState } from 'react'
 const Header = ({ text }) => <h1>{text}</h1>
 
 const Statistics = ({ statistics }) => {
+  if (statistics.all === 0) 
+    return <p>No feedback given</p>
   return (
     <div>
       <p>good {statistics.good}</p>
