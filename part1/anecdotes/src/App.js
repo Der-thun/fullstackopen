@@ -4,6 +4,8 @@ const Button = ({ handler, text }) => <button onClick={handler}>{text}</button>
 
 const Title = ({ text }) => <h2>{text}</h2>
 
+const HasVotes = ({ votes }) => <p>has {votes} votes</p>
+
 const App = () => {
   const anecdotes = [
     'If it hurts, do it more often.',
@@ -31,10 +33,12 @@ const App = () => {
     <div>
       <Title text={dayTitile} />
       <p>{anecdotes[selected]}</p>
+      <HasVotes votes={votes[selected]}/>
       <Button handler={voteHandler} text={"vote"} />
       <Button handler={nextHandler} text={"next anecdote"} />
       <Title text={mostTitle} />
       <p>{anecdotes[votes.indexOf(Math.max.apply(null, votes))]}</p>
+      <HasVotes votes={votes[votes.indexOf(Math.max.apply(null, votes))]}/>
     </div>
   )
 }
