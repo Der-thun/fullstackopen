@@ -10,11 +10,17 @@ const Content = ({ parts }) => {
 
 const Part = ({ part }) => <p>{part.name} {part.exercises}</p>
 
+const Total = ({ parts }) => {
+  const amount = parts.reduce((accum, curValue) => accum + curValue.exercises, 0)
+  return <p><b>total of {amount} exercises</b></p>
+}
+
 const Course = ({ course }) => {
   return (
     <div>
       <Header title={course.name} />
       <Content parts={course.parts} />
+      <Total parts={course.parts} />
     </div>
   )
 }
