@@ -4,6 +4,10 @@ const Button = ({ handler, text }) => (
   <button onClick={handler}>{text}</button>
 )
 
+const Title = ({ text }) => (
+  <h1>{text}</h1>
+)
+
 const App = () => {
   const anecdotes = [
     'If it hurts, do it more often.',
@@ -14,15 +18,28 @@ const App = () => {
     'Debugging is twice as hard as writing the code in the first place. Therefore, if you write the code as cleverly as possible, you are, by definition, not smart enough to debug it.',
     'Programming without an extremely heavy use of console.log is same as if a doctor would refuse to use x-rays or blood tests when diagnosing patients.'
   ]
+  const dayTitile = "Anecdote of the day"
+  const mostTitle = "Anecdote with most votes"
    
   const [selected, setSelected] = useState(0)
+  const [votes, setVotes] = useState(Array(anecdotes.length).fill(0))
 
-  const randomAnecdote = () => setSelected(Math.floor(Math.random() * anecdotes.length))
+  const nextHandler = () => setSelected(Math.floor(Math.random() * anecdotes.length))
+  const voteHandler = () => {
+    const copy = [...votes]
+    copy[selected] += 1
+    setVotes(copy)
+    console.log(copy)
+  }
 
   return (
     <div>
+      <Title text={dayTitile} />
       <p>{anecdotes[selected]}</p>
-      <Button handler={randomAnecdote} text={"next anecdote"} />
+      <Button handler={voteHandler} text={"vote"} />
+      <Button handler={nextHandler} text={"next anecdote"} />
+      <Title text={mostTitle} />
+      <p>{anecdotes[votes.indexOf(Math.max.apply(null, votes))]}</p>
     </div>
   )
 }
