@@ -1,10 +1,9 @@
 import { useState } from 'react'
 
-const Title = ({ text }) => <h1>{text}</h1>
+const Title = ({ text }) => <h2>{text}</h2>
 
-const StatisticLine = ({ text, value }) => (
-  <tr><td>{text}</td><td>{value}</td></tr>
-)
+const StatisticLine = ({ text, value }) => <tr><td>{text}</td><td>{value}</td></tr>
+
 
 const Statistics = ({ statistics }) => {
   if (statistics.all === 0) 
@@ -23,9 +22,8 @@ const Statistics = ({ statistics }) => {
   )
 }
 
-const Button = ({ handler, text }) => (
-  <button onClick={handler}>{text}</button>
-)
+const Button = ({ handler, text }) => <button onClick={handler}>{text}</button>
+
 
 const App = () => {
   const header = 'give feedback'

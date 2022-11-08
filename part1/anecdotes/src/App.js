@@ -1,12 +1,8 @@
 import { useState } from 'react'
 
-const Button = ({ handler, text }) => (
-  <button onClick={handler}>{text}</button>
-)
+const Button = ({ handler, text }) => <button onClick={handler}>{text}</button>
 
-const Title = ({ text }) => (
-  <h1>{text}</h1>
-)
+const Title = ({ text }) => <h2>{text}</h2>
 
 const App = () => {
   const anecdotes = [
@@ -29,7 +25,6 @@ const App = () => {
     const copy = [...votes]
     copy[selected] += 1
     setVotes(copy)
-    console.log(copy)
   }
 
   return (
