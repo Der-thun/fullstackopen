@@ -9,10 +9,12 @@ const FinderForm = ({ value, handler }) => {
   )
 }
 
-const CountriesList = ({ result }) => {
+const CountriesList = ({ result, handler }) => {
   return (
     <div>
-      {result.map(elem => <p key={elem.name.common}>{elem.name.common}</p>)}
+      {result.map(elem => <p key={elem.name.common}>{elem.name.common}
+      <button id={elem.name.common} onClick={handler}>show</button>
+      </p>)}
     </div>
   )
 }
@@ -32,21 +34,24 @@ const CountriePage = ({ result }) => {
   )
 }
 
-const Result = ({ data, finder }) => {
+const Result = ({ data, finder, setForm }) => {
   const result = data.filter(elem => {
     if (elem.name.common.toLowerCase().includes(finder))
       return elem
   })
-  console.log('result', result)
+
+  const handlerResult = (event) => {
+    setForm(event.target.id)
+  }
   if (finder) {
     if (result.length === 1) return <CountriePage result={result} />
-    if (result.length <= 10) return <CountriesList result={result} />
+    if (result.length <= 10) return <CountriesList result={result} handler={handlerResult}/>
   }
 }
 
 const App = () => {
   const [newFinderForm, setNewFinderForm] = useState('')
-  let [data, setData] = useState([])
+  const [data, setData] = useState([])
   useEffect(() => {
     axios
     .get(`https://restcountries.com/v3.1/all`)
@@ -62,7 +67,7 @@ const App = () => {
   return (
     <div>
       <FinderForm value={newFinderForm} handler={handlerFinderForm} />
-      <Result data={data} finder={newFinderForm.toLocaleLowerCase()} />
+      <Result data={data} finder={newFinderForm.toLocaleLowerCase()} setForm={setNewFinderForm} />
     </div>
   )
 }
