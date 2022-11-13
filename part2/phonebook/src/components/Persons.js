@@ -5,7 +5,7 @@ const Persons = ({ persons, filter, handlerDel }) => {
           if (person.name.toLocaleLowerCase().includes(filter.toLocaleLowerCase())) 
             return <p key={person.id}>
                     {person.name} {person.number} 
-                    <button id={person.id} onClick={handlerDel}>delete</button>
+                    <button id={person.id} name={person.name} onClick={handlerDel}>delete</button>
                   </p>
           return ''
           })

@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react'
-// import axios from 'axios'
 import Persons from './components/Persons'
 import Filter from './components/Filter'
 import PersonForm from './components/Form'
@@ -19,7 +18,7 @@ const App = () => {
 
   const addName = (event) => {
     event.preventDefault()
-    let inPhonebook = []
+    const inPhonebook = []
     persons.forEach(person => inPhonebook.push(person.name))
     const addNewName = newName.trim()
     if(!inPhonebook.includes(addNewName)) {
@@ -39,7 +38,24 @@ const App = () => {
       setNewName('')
       setNewPhoneNumber('')
     } else {
-      alert(`${addNewName} is already added to phonebook`)
+      if (window.confirm(`${addNewName} is already added to phonebook. Do you  want to change number?`)) {
+        const id = inPhonebook.indexOf(addNewName)
+        const idAmount = persons[id].id
+        const newNumber = [...persons]
+        newNumber[id].number = newPhoneNumber
+        numberSevice
+          .updateNumbers(idAmount, newNumber[id])
+          .then(resp => {
+            setPersons(persons.map(number => number.name === addNewName ? resp : number))
+            setNewName('')
+            setNewPhoneNumber('')
+          })
+          .catch(err => {
+            alert('Something wrong')
+            numberSevice.getNumbers()
+              .then(numbers => setPersons(numbers))
+          })
+      }
     }    
   }
 
@@ -56,11 +72,10 @@ const App = () => {
   }
 
   const handlerDel = (event) => {
-    const id = event.target.id
-    if (window.confirm(`Do you really want to delete ${persons[id - 1].name} ?`))
+    if (window.confirm(`Do you want to delete ${event.target.name} ?`))
     {  
       numberSevice
-        .delNumbers(id)
+        .delNumbers(event.target.id)
           .then(resp => numberSevice.getNumbers()
             .then(numbers => setPersons(numbers)))
           .catch((err) => {
