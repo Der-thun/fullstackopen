@@ -26,11 +26,16 @@ const App = () => {
       const nameObj = {
         name: addNewName,
         number: newPhoneNumber,
-        id: persons.length + 1,
       }
       numberSevice
         .createNumbers(nameObj)
-      setPersons(persons.concat(nameObj))
+        .then(resp => numberSevice.getNumbers()
+            .then(numbers => setPersons(numbers)))
+        .catch(err => {
+          alert('Something wrong')
+          numberSevice.getNumbers()
+            .then(numbers => setPersons(numbers))
+        })
       setNewName('')
       setNewPhoneNumber('')
     } else {
@@ -50,6 +55,22 @@ const App = () => {
     setNewFilter(event.target.value)
   }
 
+  const handlerDel = (event) => {
+    const id = event.target.id
+    if (window.confirm(`Do you really want to delete ${persons[id - 1].name} ?`))
+    {  
+      numberSevice
+        .delNumbers(id)
+          .then(resp => numberSevice.getNumbers()
+            .then(numbers => setPersons(numbers)))
+          .catch((err) => {
+            alert('The number has been deleted')
+            numberSevice.getNumbers()
+              .then(numbers => setPersons(numbers))
+            })
+    }
+  }
+
   return (
     <div>
       <h2>Phonebook</h2>
@@ -58,7 +79,7 @@ const App = () => {
       <PersonForm handleSubmit={addName} nameValue={newName} handleName={handleNameAdd} 
           numberValue={newPhoneNumber} handleNumber={handlePhoneAdd} />
       <h2>Numbers</h2>
-      <Persons persons={persons} filter={newFilter} />
+      <Persons persons={persons} filter={newFilter} handlerDel={handlerDel} />
     </div>
   )
 }

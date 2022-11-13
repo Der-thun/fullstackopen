@@ -1,9 +1,12 @@
-const Persons = ({ persons, filter }) => {
+const Persons = ({ persons, filter, handlerDel }) => {
     return (
       <div>
         {persons.map(person => {
           if (person.name.toLocaleLowerCase().includes(filter.toLocaleLowerCase())) 
-            return <p key={person.id}>{person.name} {person.number}</p>
+            return <p key={person.id}>
+                    {person.name} {person.number} 
+                    <button id={person.id} onClick={handlerDel}>delete</button>
+                  </p>
           return ''
           })
           }

@@ -12,4 +12,13 @@ const createNumbers = (data) => {
     return request.then(responce => responce.data)
 }
 
-export default {getNumbers, createNumbers }
+const updateNumbers = (id, data) => {
+    const request = axios.put(`${url}/${id}`, data)
+    return request.then(responce => responce.data)
+  }
+
+const delNumbers = (id) => {
+    return axios.delete(`${url}/${id}`)
+}
+
+export default {getNumbers, createNumbers, updateNumbers, delNumbers }
