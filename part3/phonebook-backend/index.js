@@ -29,5 +29,12 @@ app.get('/api/persons', (request, response) => {
     response.json(persons)
 })
 
+app.get('/info', (request, response) => {
+    const amount = persons.length
+    const date = new Date()
+    if (amount === 0) response.send(`<p>Phonebook hasn't info</p><p>${date}</p>`)
+    else response.send(`<p>Phonebook has info for ${persons.length} people</p><p>${date}</p>`)
+})
+
 const PORT = 3001
 app.listen(PORT)
