@@ -57,6 +57,21 @@ const newId = () => {
 
 app.post('/api/persons', (request, response) => {
     const person = request.body
+    if(!person.name) {
+        return response.status(400).json({
+            error: 'name is missing'
+        })
+    }
+    if(!person.number) {
+        return response.status(400).json({
+            error: 'phonenubmer is missing'
+        })
+    }
+    if (persons.filter(elem => elem.name === person.name.trim()).length !== 0) {
+        return response.status(400).json({
+            error: 'name should be unique'
+        })
+    }      
     person.id = newId()
     persons = persons.concat(person)
     response.json(person)
