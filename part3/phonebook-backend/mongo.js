@@ -20,7 +20,6 @@ if (process.argv.length === 3) {
     mongoose
       .connect(url)
       .then((result) => {
-        console.log('connected')
         console.log('phonebook:')
         People.find({}).then(result => {
           result.forEach(note => console.log(`${note.name} ${note.number}`))
@@ -32,9 +31,7 @@ if (process.argv.length === 3) {
 else if (process.argv.length === 5) {
     mongoose
       .connect(url)
-      .then((result) => {
-        console.log('connected')   
-    
+      .then((result) => { 
         const note = new People({
             name: process.argv[3],
             number: process.argv[4],
