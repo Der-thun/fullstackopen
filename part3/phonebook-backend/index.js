@@ -86,9 +86,15 @@ app.post('/api/persons', (request, response) => {
             error: 'name should be unique'
         })
     }      
-    person.id = newId()
-    persons = persons.concat(person)
-    response.json(person)
+    const note = new People
+    ({
+      name: person.name,
+      number: person.number,
+    })
+  
+    note.save().then(savedNote => {
+      response.json(savedNote)
+    })
 })
 
 const PORT = process.env.PORT
